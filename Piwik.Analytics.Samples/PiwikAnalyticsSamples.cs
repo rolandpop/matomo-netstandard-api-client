@@ -1,12 +1,10 @@
-﻿#region license
-// http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
-#endregion
-
-using System;
-using System.Collections;
+﻿// Copyright (c) Roland Pop All rights reserved.
+// Licensed under the BSD 2-clause "Simplified" License. See License.txt in the project root for license information.
 
 using Piwik.Analytics.Date;
 using Piwik.Analytics.Modules;
+using System;
+using System.Collections;
 
 /// <summary>
 /// Piwik - Open source web analytics
@@ -25,84 +23,86 @@ namespace Piwik.Analytics.Samples
                 // ****************************************
                 // SITES MANAGER MODULE - Doc/Test methods
                 // ****************************************
-//                AddMinimalSite();
-//                addComplexeSite();
-//                AddIncompleteSite();
-//                AddUnthorizedSite();
-//                DeleteSite();
-//                GetSitesIdFromSiteUrl();
-//                getSiteFromId();
-//                UpdateSite();
+                //                AddMinimalSite();
+                //                addComplexeSite();
+                //                AddIncompleteSite();
+                //                AddUnthorizedSite();
+                //                DeleteSite();
+                //                GetSitesIdFromSiteUrl();
+                //                getSiteFromId();
+                //                UpdateSite();
 
                 // ****************************************
                 // USER SETTINGS MODULE - Doc/Test methods
                 // ****************************************
-//                GetBrowserMonthYesterday();
-//                GetBrowserMonthSpecificDate();
-//                GetBrowserMonthLast2();
-//                GetBrowserRangeSpecificDates();
-//                GetBrowserRangeYear();
-//                GetBrowserYear();
-//                GetOs();
-//                GetMobileOs();
+                //                GetBrowserMonthYesterday();
+                //                GetBrowserMonthSpecificDate();
+                //                GetBrowserMonthLast2();
+                //                GetBrowserRangeSpecificDates();
+                //                GetBrowserRangeYear();
+                //                GetBrowserYear();
+                //                GetOs();
+                //                GetMobileOs();
 
                 // ****************************************
                 // VISIT FREQUENCY MODULE - Doc/Test methods
                 // ****************************************
-//                GetVisitFrequencyOnePeriod();
-//                GetVisitFrequencyTwoPeriods();
+                //                GetVisitFrequencyOnePeriod();
+                //                GetVisitFrequencyTwoPeriods();
 
 
                 // ****************************************
                 // ACTIONS MODULE - Doc/Test methods
                 // ****************************************
-//                GetPageUrls();
-//                GetPageTitles();
+                //                GetPageUrls();
+                //                GetPageTitles();
+                //                GetPageUrl();
+                           GetDownload();
 
                 // ****************************************
                 // REFERERS MODULE - Doc/Test methods
                 // ****************************************
-//                GetWebsites();
-//                GetWebsitesExpanded();
-//                GetRefererType();
-//                GetRefererTypeFiltered();
+                //                GetWebsites();
+                //                GetWebsitesExpanded();
+                //                GetRefererType();
+                //                GetRefererTypeFiltered();
 
                 // ****************************************
                 // SCHEDULED REPORTS MODULE - Doc/Test methods
                 // ****************************************
-//                AddReport();
+                //                AddReport();
 
                 // ****************************************
                 // USERS MANAGER MODULE - Doc/Test methods
                 // ****************************************
-//                SetUserPreference();
-//                GetUserPreference();
-//                GetUsers();
-//                GetUsersLogin();
-//                GetUsersSitesFromAccess();
-//                GetUsersAccessFromSite();
-//                GetUsersWithSiteAccess();
-//                GetSitesAccessFromUser();
-//                GetUser();
-//                GetUserByEmail();
-//                AddUser();
-//                SetSuperUserAccess();
-//                HasSuperUserAccess();
-//                GetUsersHavingSuperUserAccess();
-//                UpdateUser();
-//                DeleteUser();
-//                UserExists();
-//                UserEmailExists();
-//                GetUserLoginFromUserEmail();
-//                SetUserAccess();
-//                GetTokenAuth();
+                //                SetUserPreference();
+                //                GetUserPreference();
+                //                GetUsers();
+                //                GetUsersLogin();
+                //                GetUsersSitesFromAccess();
+                //                GetUsersAccessFromSite();
+                //                GetUsersWithSiteAccess();
+                //                GetSitesAccessFromUser();
+                //                GetUser();
+                //                GetUserByEmail();
+                //                AddUser();
+                //                SetSuperUserAccess();
+                //                HasSuperUserAccess();
+                //                GetUsersHavingSuperUserAccess();
+                //                UpdateUser();
+                //                DeleteUser();
+                //                UserExists();
+                //                UserEmailExists();
+                //                GetUserLoginFromUserEmail();
+                //                SetUserAccess();
+                //                GetTokenAuth();
 
 
 
             }
             catch (PiwikAPIException ex)
             {
-              Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message);
             }
 
             Console.ReadKey(true);
@@ -113,8 +113,8 @@ namespace Piwik.Analytics.Samples
             var siteManager = new SitesManager();
             siteManager.setTokenAuth("XYZ");
 
-            string[] urls = { "http://brandNew", "http://shinyNew" };        
-              
+            string[] urls = { "http://brandNew", "http://shinyNew" };
+
             var newSiteId = siteManager.addSite("Brand New Site", urls);
 
             Console.WriteLine("Brand New Site correctly created with id = " + newSiteId);
@@ -208,15 +208,15 @@ namespace Piwik.Analytics.Samples
             string[] excludedQueryParameters = { "key1", "key2" };
 
             var status = siteManager.updateSite(
-                5, 
-                "Brand New Site", 
-                urls, 
-                true, 
-                excludedIps, 
-                excludedQueryParameters, 
-                "UTC-4", 
-                "USD", 
-                "group2", 
+                5,
+                "Brand New Site",
+                urls,
+                true,
+                excludedIps,
+                excludedQueryParameters,
+                "UTC-4",
+                "USD",
+                "group2",
                 new DateTime(2011, 01, 10)
             );
 
@@ -241,7 +241,7 @@ namespace Piwik.Analytics.Samples
         {
             var userSettings = new UserSettings();
             userSettings.setTokenAuth("XYZ");
-            var results = (ArrayList) userSettings.getBrowser(1, PiwikPeriod.MONTH, MagicDate.YESTERDAY);
+            var results = (ArrayList)userSettings.getBrowser(1, PiwikPeriod.MONTH, MagicDate.YESTERDAY);
 
             Console.WriteLine(results.Count + " results found");
 
@@ -334,8 +334,8 @@ namespace Piwik.Analytics.Samples
             userSettings.setTokenAuth("XYZ");
 
             var results = (ArrayList)userSettings.getBrowser(
-                1, 
-                PiwikPeriod.RANGE, 
+                1,
+                PiwikPeriod.RANGE,
                 new AbsoluteRangeDate(new DateTime(2011, 09, 10), (new DateTime(2011, 09, 18)))
             );
 
@@ -625,6 +625,92 @@ namespace Piwik.Analytics.Samples
             }
         }
 
+        public static void GetPageUrl()
+        {
+            var actions = new Actions();
+            actions.setTokenAuth("XYZ");
+
+            var results = (Hashtable)actions.getPageUrl(
+                "",
+                1,
+                PiwikPeriod.DAY,
+                RelativeRangeDate.LAST(7)
+                );
+
+            Console.WriteLine(results.Count + " results found");
+
+
+            foreach (string day in results.Keys)
+            {
+                var dayResults = (ArrayList)results[day];
+
+
+                if (dayResults.Count > 0)
+                {
+                    var result = (Hashtable)dayResults[0];
+
+                    Console.WriteLine(
+                        result[Actions.LABEL] + " " +
+                        result[Actions.NB_VISITS] + " " +
+                        result[Actions.NB_UNIQ_VISITORS] + " " +
+                        result[Actions.NB_HITS] + " " +
+                        result[Actions.SUM_TIME_SPENT] + " " +
+                        result[Actions.ENTRY_NB_UNIQ_VISITORS] + " " +
+                        result[Actions.ENTRY_NB_VISITS] + " " +
+                        result[Actions.ENTRY_NB_ACTIONS] + " " +
+                        result[Actions.ENTRY_SUM_VISIT_LENGTH] + " " +
+                        result[Actions.ENTRY_BOUNCE_COUNT] + " " +
+                        result[Actions.EXIT_NB_UNIQ_VISITORS] + " " +
+                        result[Actions.EXIT_NB_VISITS] + " " +
+                        result[Actions.AVG_TIME_ON_PAGE] + " " +
+                        result[Actions.BOUNCE_RATE] + " " +
+                        result[Actions.EXIT_RATE]
+                    );
+                }
+                else
+                {
+                    Console.WriteLine(day + " no results");
+                }
+            }
+        }
+
+        public static void GetDownload()
+        {
+            var actions = new Actions();
+            actions.setTokenAuth("XYZ");
+
+            var results = (Hashtable)actions.getDownload(
+                "",
+                1,
+                PiwikPeriod.DAY,
+                RelativeRangeDate.LAST(7)
+                );
+
+            Console.WriteLine(results.Count + " results found");
+
+            foreach (string day in results.Keys)
+            {
+                var dayResults = (ArrayList)results[day];
+
+                if (dayResults.Count > 0)
+                {
+                    var result = (Hashtable)dayResults[0];
+
+                    Console.WriteLine(
+                        result[Actions.LABEL] + " " +
+                        result[Actions.NB_VISITS] + " " +
+                        result[Actions.NB_UNIQ_VISITORS] + " " +
+                        result[Actions.NB_HITS] + " " +
+                        result[Actions.SUM_TIME_SPENT] + " "
+                    );
+                }
+                else
+                {
+                    Console.WriteLine(day + " no results");
+                }
+            }
+        }
+
         private static void GetWebsites()
         {
             var referers = new Referers();
@@ -677,7 +763,7 @@ namespace Piwik.Analytics.Samples
                 );
 
                 // Loop over pages of referers who led visitors to your website
-                if(result.ContainsKey(Referers.SUBTABLE))
+                if (result.ContainsKey(Referers.SUBTABLE))
                 {
                     foreach (Hashtable subtable in (ArrayList)result[Referers.SUBTABLE])
                     {
@@ -727,8 +813,8 @@ namespace Piwik.Analytics.Samples
             referers.setTokenAuth("XYZ");
             var results = (ArrayList)referers.getRefererType(1, PiwikPeriod.MONTH, MagicDate.YESTERDAY, String.Empty, RefererType.SEARCH_ENGINE);
 
-            var specificRefererTypeStats = (Hashtable) results[0];
-                
+            var specificRefererTypeStats = (Hashtable)results[0];
+
             Console.WriteLine(
                 specificRefererTypeStats[Referers.LABEL] + " " +
                 specificRefererTypeStats[Referers.NB_UNIQ_VISITORS] + " " +
@@ -760,12 +846,13 @@ namespace Piwik.Analytics.Samples
             reports.Add(ScheduledReports.Statistic.Actions_getPageUrls);
             reports.Add(ScheduledReports.Statistic.Actions_getSiteSearchKeywords);
             reports.Add(ScheduledReports.Statistic.Actions_getPageTitles);
+            reports.Add(ScheduledReports.Statistic.Actions_getPageUrl);
             reports.Add(ScheduledReports.Statistic.Referrers_getAll);
             reports.Add(ScheduledReports.Statistic.Goals_get);
             reports.Add(ScheduledReports.Statistic.VisitorInterest_getNumberOfVisitsPerPage);
             reports.Add(ScheduledReports.Statistic.DevicesDetection_getBrowsers);
 
-            string[] recipients = 
+            string[] recipients =
             {
                 "foobar@domain.tld",
                 "barfoo@domain.tld"
@@ -804,7 +891,7 @@ namespace Piwik.Analytics.Samples
             var usersManager = new UsersManager();
             usersManager.setTokenAuth("XYZ");
 
-            String[] logins = 
+            String[] logins =
             {
                 "foobar",
                 "barfoo"
@@ -878,7 +965,7 @@ namespace Piwik.Analytics.Samples
                 {
                     Console.WriteLine(pair.Key + ": " + pair.Value);
                 }
-            }            
+            }
         }
 
         private static void GetUsersWithSiteAccess()

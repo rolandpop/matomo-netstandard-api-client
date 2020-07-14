@@ -1,6 +1,5 @@
-﻿#region license
-// http://opensource.org/licenses/cpl1.0.php CPL-1.0
-#endregion
+﻿// Copyright (c) Roland Pop All rights reserved.
+// Licensed under the BSD 2-clause "Simplified" License. See License.txt in the project root for license information.
 
 /*
  * Serializer.cs

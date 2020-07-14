@@ -1,6 +1,5 @@
-﻿#region license
-// http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
-#endregion
+﻿// Copyright (c) Roland Pop All rights reserved.
+// Licensed under the BSD 2-clause "Simplified" License. See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -24,7 +23,7 @@ namespace Piwik.Analytics.Modules
     /// <remarks>
     /// This Analytics API is tested against Piwik 1.5
     /// </remarks> 
-    public class Actions : PiwikAnalytics 
+    public class Actions : PiwikAnalytics
     {
         public const string LABEL = "label";
         public const string NB_VISITS = "nb_visits";
@@ -52,7 +51,7 @@ namespace Piwik.Analytics.Modules
 
         public Object getPageUrls(int idSite, PiwikPeriod period, PiwikDate date, string segment = null)
         {
-            Parameter[] parameters = 
+            Parameter[] parameters =
             {
                 new SimpleParameter("idSite", idSite),
                 new PeriodParameter("period", period),
@@ -72,7 +71,7 @@ namespace Piwik.Analytics.Modules
 
         public Object getPageTitles(int idSite, PiwikPeriod period, PiwikDate date, string segment = null)
         {
-            Parameter[] parameters = 
+            Parameter[] parameters =
             {
                 new SimpleParameter("idSite", idSite),
                 new PeriodParameter("period", period),
@@ -87,6 +86,48 @@ namespace Piwik.Analytics.Modules
             else
             {
                 return this.sendRequest<ArrayList>("getPageTitles", new List<Parameter>(parameters));
+            }
+        }
+
+        public Object getPageUrl(string pageUrl, int idSite, PiwikPeriod period, PiwikDate date, string segment = null)
+        {
+            Parameter[] parameters =
+            {
+                new SimpleParameter("pageUrl",pageUrl),
+                new SimpleParameter("idSite", idSite),
+                new PeriodParameter("period", period),
+                new PiwikDateParameter("date", date),
+                new SimpleParameter("segment", segment),
+            };
+
+            if (PiwikPeriod.isMultipleDates(period, date))
+            {
+                return this.sendRequest<Hashtable>("getPageUrl", new List<Parameter>(parameters));
+            }
+            else
+            {
+                return this.sendRequest<Hashtable>("getPageUrl", new List<Parameter>(parameters));
+            }
+        }
+
+        public Object getDownload(string downloadUrl,int idSite, PiwikPeriod period, PiwikDate date, string segment = null)
+        {
+            Parameter[] parameters =
+            {
+                new SimpleParameter("downloadUrl",downloadUrl),
+                new SimpleParameter("idSite", idSite),
+                new PeriodParameter("period", period),
+                new PiwikDateParameter("date", date),
+                new SimpleParameter("segment", segment),
+            };
+
+            if (PiwikPeriod.isMultipleDates(period, date))
+            {
+                return this.sendRequest<Hashtable>("getDownload", new List<Parameter>(parameters));
+            }
+            else
+            {
+                return this.sendRequest<Hashtable>("getDownload", new List<Parameter>(parameters));
             }
         }
     }

@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) Roland Pop All rights reserved.
+// Licensed under the BSD 2-clause "Simplified" License. See License.txt in the project root for license information.
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Piwik.Analytics.Date;

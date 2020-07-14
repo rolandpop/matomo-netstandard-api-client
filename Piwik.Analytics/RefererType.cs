@@ -1,6 +1,5 @@
-﻿#region license
-// http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
-#endregion
+﻿// Copyright (c) Roland Pop All rights reserved.
+// Licensed under the BSD 2-clause "Simplified" License. See License.txt in the project root for license information.
 
 namespace Piwik.Analytics
 {
