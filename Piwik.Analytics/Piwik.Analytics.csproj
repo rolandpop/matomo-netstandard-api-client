@@ -6,5 +6,20 @@
 		<Authors>Roland Pop</Authors>
 		<Product>Matomo_netcore</Product>
 		<Description>.Net Standard version of Matomo API client</Description>
+		<Copyright>Roland Pop</Copyright>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<RepositoryUrl>https://github.com/rolandpop/matomo-netstandard-api-client</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<AssemblyVersion>1.0.0.1</AssemblyVersion>
+		<FileVersion>1.0.0.1</FileVersion>
+		<NeutralLanguage>en-US</NeutralLanguage>
+		<PackageReleaseNotes>.Net Standard implementation of Matomo API Client.</PackageReleaseNotes>
+		<Version>1.0.1</Version>
 	</PropertyGroup>
+	<ItemGroup>
+	  <None Include="..\LICENSE">
+	    <Pack>True</Pack>
+	    <PackagePath></PackagePath>
+	  </None>
+	</ItemGroup>
 </Project>
