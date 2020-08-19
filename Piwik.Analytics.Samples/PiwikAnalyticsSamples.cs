@@ -57,7 +57,7 @@ namespace Piwik.Analytics.Samples
                 //                GetPageUrls();
                 //                GetPageTitles();
                 //                GetPageUrl();
-                           GetDownload();
+                //                GetDownload();
 
                 // ****************************************
                 // REFERERS MODULE - Doc/Test methods
@@ -97,7 +97,15 @@ namespace Piwik.Analytics.Samples
                 //                SetUserAccess();
                 //                GetTokenAuth();
 
+                // ****************************************
+                // MARKETING CAMPAIGNS REPORTING MODULE - Doc/Test methods
+                // ****************************************
+                //                GetSource();
 
+                // ****************************************
+                // MARKETING CAMPAIGNS REPORTING MODULE - Doc/Test methods
+                // ****************************************
+                //               GetLastVisitsDetails();
 
             }
             catch (PiwikAPIException ex)
@@ -1187,8 +1195,112 @@ namespace Piwik.Analytics.Samples
             var usersManager = new UsersManager();
             usersManager.setTokenAuth("XYZ");
 
-            var tokenAuth = usersManager.getTokenAuth("foobar", "0c94cfb751db3511092c959be705b97c");
+            var tokenAuth = usersManager.getTokenAuth("foobar", "XYZ");
             Console.WriteLine("Token Auth: " + tokenAuth);
+        }
+
+        private static void GetSource()
+        {
+            var marketingCampaignsReporting = new MarketingCampaignsReporting();
+            marketingCampaignsReporting.setTokenAuth("XYZ");
+
+            var results = (Hashtable)marketingCampaignsReporting.getSource(
+                1,
+                PiwikPeriod.DAY,
+                RelativeRangeDate.LAST(7)
+                );
+
+            Console.WriteLine(results.Count + " results found");
+
+            foreach (string day in results.Keys)
+            {
+                var dayResults = (ArrayList)results[day];
+
+                if (dayResults.Count > 0)
+                {
+                    Console.WriteLine("Day:" + day);
+
+                    foreach (var dayResult in dayResults)
+                    {
+                        var result = (Hashtable)dayResult;
+
+                        Console.WriteLine(
+                           "Label: " + result[MarketingCampaignsReporting.LABEL] + " \n" +
+                           "Visitors: " + result[MarketingCampaignsReporting.NB_VISITS] + " " +
+                           "Unique Visitors: " + result[MarketingCampaignsReporting.NB_UNIQ_VISITORS] + " " +
+                           "Actions: " + result[MarketingCampaignsReporting.NB_ACTIONS] + " " +
+                           "Users: " + result[MarketingCampaignsReporting.NB_USERS] + " " +
+                           "Max Actions: " + result[MarketingCampaignsReporting.MAX_ACTIONS] + " " +
+                           "Visit Length: " + result[MarketingCampaignsReporting.SUM_VISIT_LENDTH] + " " +
+                           "Bounces: " + result[MarketingCampaignsReporting.BOUNCE_COUNT] + " \n" +
+                           "Visit Conversions: " + result[MarketingCampaignsReporting.NB_VISITS_CONVERTED] + "  \n" +
+                           "Conversions: " + result[MarketingCampaignsReporting.NB_CONVERSIONS] + " \n" +
+                           "Revenue: " + result[MarketingCampaignsReporting.REVENUE] + " \n" +
+                           "Segment: " + result[MarketingCampaignsReporting.SEGMENT]
+                        );
+                    }
+
+                }
+                else
+                {
+                    Console.WriteLine(day + " no results");
+                }
+            }
+        }
+
+        private static void GetLastVisitsDetails()
+        {
+            var live = new Live();
+            live.setTokenAuth("XYZ");
+
+            var results = (ArrayList)live.getLastVisitsDetails(
+                idSite: 1,
+                period: PiwikPeriod.DAY,
+                date: RelativeRangeDate.LAST(7),
+                segment: ""
+                );
+
+            Console.WriteLine(results.Count + " results found");
+
+            if (results.Count > 0)
+            {
+                foreach (var result in results)
+                {
+                    var liveResult = (Hashtable)result;
+
+                    Console.WriteLine(
+                       "VIsitId: " + liveResult[Live.ID_VISIT] + " \n" +
+                       "VisitIP: " + liveResult[Live.VISIT_IP] + " \n" +
+                       "Visitor ID: " + liveResult[Live.VISITOR_ID] + " \n" +
+                       "Conversions : " + liveResult[Live.GOAL_CONVERSIONS] + " \n" +
+                       "VISIT_COUNT: " + liveResult[Live.VISIT_COUNT] + " \n" +
+                       "VISIT_DURATION: " + liveResult[Live.VISIT_DURATION] + " \n" +
+                       "REFERRER_TYPE: " + liveResult[Live.REFERRER_TYPE] + " \n" +
+                       "REFERRER_TYPE_NAME: " + liveResult[Live.REFERRER_TYPE_NAME] + " \n" +
+                       "REFERRER_NAME: " + liveResult[Live.REFERRER_NAME] + "  \n" +
+                       "REFERRER_KEYWORD: " + liveResult[Live.REFERRER_KEYWORD] + " \n" +
+                       "REFERRER_KEYWORD_POSITION: " + liveResult[Live.REFERRER_KEYWORD_POSITION] + " \n" +
+                       "REFERRER_URL: " + liveResult[Live.REFERRER_URL] + " \n" +
+                       "LANGUAGE_CODE: " + liveResult[Live.LANGUAGE_CODE] + " \n" +
+                       "DEVICE_TYPE: " + liveResult[Live.DEVICE_TYPE] + " \n" +
+                       "DEVICE_BRAND: " + liveResult[Live.DEVICE_BRAND] + " \n" +
+                       "DEVICE_MODEL: " + liveResult[Live.DEVICE_MODEL] + " \n" +
+                       "OS: " + liveResult[Live.OS] + " \n" +
+                       "COUNTRY: " + liveResult[Live.COUNTRY] + " \n" +
+                       "CITY: " + liveResult[Live.CITY] + " \n" +
+                       "CAMPAIGN_ID: " + liveResult[Live.CAMPAIGN_ID] + " \n" +
+                       "CAMPAIGN_KEYWORD: " + liveResult[Live.CAMPAIGN_KEYWORD] + " \n" +
+                       "CAMPAIGN_MEDIUM: " + liveResult[Live.CAMPAIGN_MEDIUM] + " \n" +
+                       "CAMPAIGN_NAME: " + liveResult[Live.CAMPAIGN_NAME] + " \n" +
+                       "CAMPAIGN_SOURCE: " + liveResult[Live.CAMPAIGN_SOURCE] + " \n" +
+                       "CAMPAIGN_CONTENT: " + liveResult[Live.CAMPAIGN_CONTENT]
+                    );
+                }
+            }
+            else
+            {
+                Console.WriteLine("No results");
+            }
         }
     }
 }
