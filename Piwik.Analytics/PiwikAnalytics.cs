@@ -35,7 +35,7 @@ namespace Piwik.Analytics
             parameters.Add(new SimpleParameter("token_auth", this.tokenAuth));
             parameters.Add(new SimpleParameter("method", this.getPlugin() + "." + method));
 
-            string url = URL + "/?module=API&format=php";
+            string url = URL + "/?module=API&format=json";
 
             foreach (Parameter parameter in parameters)
             {
