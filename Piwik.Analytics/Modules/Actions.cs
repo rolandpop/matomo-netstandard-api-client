@@ -1,12 +1,10 @@
 ﻿// Copyright (c) Roland Pop All rights reserved.
 // Licensed under the BSD 2-clause "Simplified" License. See License.txt in the project root for license information.
 
-using System;
-using System.Collections.Generic;
-using System.Collections;
-
 using Piwik.Analytics.Date;
 using Piwik.Analytics.Parameters;
+using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// Piwik - Open source web analytics
@@ -61,11 +59,11 @@ namespace Piwik.Analytics.Modules
 
             if (PiwikPeriod.isMultipleDates(period, date))
             {
-                return this.sendRequest<Hashtable>("getPageUrls", new List<Parameter>(parameters));
+                return this.sendRequest<Dictionary<string, List<object>>>("getPageUrls", new List<Parameter>(parameters));
             }
             else
             {
-                return this.sendRequest<ArrayList>("getPageUrls", new List<Parameter>(parameters));
+                return this.sendRequest<List<object>>("getPageUrls", new List<Parameter>(parameters));
             }
         }
 
@@ -81,11 +79,11 @@ namespace Piwik.Analytics.Modules
 
             if (PiwikPeriod.isMultipleDates(period, date))
             {
-                return this.sendRequest<Hashtable>("getPageTitles", new List<Parameter>(parameters));
+                return this.sendRequest<Dictionary<string, List<object>>>("getPageTitles", new List<Parameter>(parameters));
             }
             else
             {
-                return this.sendRequest<ArrayList>("getPageTitles", new List<Parameter>(parameters));
+                return this.sendRequest<List<object>>("getPageTitles", new List<Parameter>(parameters));
             }
         }
 
@@ -102,15 +100,15 @@ namespace Piwik.Analytics.Modules
 
             if (PiwikPeriod.isMultipleDates(period, date))
             {
-                return this.sendRequest<Hashtable>("getPageUrl", new List<Parameter>(parameters));
+                return this.sendRequest<Dictionary<string, List<object>>>("getPageUrl", new List<Parameter>(parameters));
             }
             else
             {
-                return this.sendRequest<Hashtable>("getPageUrl", new List<Parameter>(parameters));
+                return this.sendRequest<Dictionary<string, List<object>>>("getPageUrl", new List<Parameter>(parameters));
             }
         }
 
-        public Object getDownload(string downloadUrl,int idSite, PiwikPeriod period, PiwikDate date, string segment = null)
+        public Object getDownload(string downloadUrl, int idSite, PiwikPeriod period, PiwikDate date, string segment = null)
         {
             Parameter[] parameters =
             {
@@ -123,11 +121,11 @@ namespace Piwik.Analytics.Modules
 
             if (PiwikPeriod.isMultipleDates(period, date))
             {
-                return this.sendRequest<Hashtable>("getDownload", new List<Parameter>(parameters));
+                return this.sendRequest<Dictionary<string, List<object>>>("getDownload", new List<Parameter>(parameters));
             }
             else
             {
-                return this.sendRequest<Hashtable>("getDownload", new List<Parameter>(parameters));
+                return this.sendRequest<Dictionary<string, List<object>>>("getDownload", new List<Parameter>(parameters));
             }
         }
     }

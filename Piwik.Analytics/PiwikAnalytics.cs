@@ -1,14 +1,12 @@
 ﻿// Copyright (c) Roland Pop All rights reserved.
 // Licensed under the BSD 2-clause "Simplified" License. See License.txt in the project root for license information.
 
+using Newtonsoft.Json.Linq;
+using Piwik.Analytics.Parameters;
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.IO;
-using Conversive.PHPSerializationLibrary;
-using System.Collections;
-
-using Piwik.Analytics.Parameters;
+using System.Net;
 
 namespace Piwik.Analytics
 {
@@ -55,40 +53,42 @@ namespace Piwik.Analytics
                     throw new PiwikAPIException("The server response doesn't contain any data.");
                 }
 
-                string secondLine = sr.ReadLine();
-
-                if (!String.IsNullOrEmpty(secondLine))
-                {
-                    throw new PiwikAPIException(
-                        "The server response contains an anormal number of lines. " + 
-                        "Please contact the developer with the following details : " +
-                        "secondLine = " + secondLine + ", responseData = " + responseData
-                    );
-                }
             }
 
             httpResponse.Close();
 
-            Object deserializedObject = new Serializer().Deserialize(responseData);
+            Object deserializedObject;
+
+            if (responseData.StartsWith('['))
+            {
+                var jObject = JArray.Parse(responseData);
+                deserializedObject = jObject.ToObject<T>();
+            }
+            else
+            {
+                var jObject = JObject.Parse(responseData);
+                deserializedObject = jObject.ToObject<T>();
+            }
 
             if (deserializedObject == null)
             {
                 throw new PiwikAPIException(
-                    "The server response is not deserializable. " + 
+                    "The server response is not deserializable. " +
                     "Please contact the developer with the following details : responseData = " + responseData
                 );
             }
 
             if (!(deserializedObject is T))
             {
-                if (deserializedObject is Hashtable)
+                // Didnt test this 
+                if (deserializedObject is Dictionary<string, List<object>>)
                 {
-                    Hashtable result = (Hashtable)deserializedObject;
-                    string resultString = (string)result["result"];
-                    
+                    var result = (Dictionary<string, List<object>>)deserializedObject;
+                    string resultString = result["result"][0].ToString();
+
                     if (resultString.Equals("error"))
                     {
-                        throw new PiwikAPIException((string)result["message"]);
+                        throw new PiwikAPIException(result["message"][0].ToString());
                     }
                     else
                     {
@@ -98,10 +98,10 @@ namespace Piwik.Analytics
                             resultStatus = true;
                             return (T)(Object)resultStatus;
                         }
-                        
+
                         throw new PiwikAPIException(
-                            "The server response does not match the expected return type. " + 
-                            "Please contact the developer with the following details : " + 
+                            "The server response does not match the expected return type. " +
+                            "Please contact the developer with the following details : " +
                             "responseData = " + responseData + ", deserializedObject.getType() = " + deserializedObject.GetType()
                         );
                     }
@@ -109,8 +109,8 @@ namespace Piwik.Analytics
                 else
                 {
                     throw new PiwikAPIException(
-                        "The server response has an unknown format. " + 
-                        "Please contact the developer with the following details : " + 
+                        "The server response has an unknown format. " +
+                        "Please contact the developer with the following details : " +
                         "responseData = " + responseData + ", deserializedObject.getType() = " + deserializedObject.GetType()
                     );
                 }

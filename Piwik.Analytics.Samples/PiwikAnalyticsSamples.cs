@@ -1,10 +1,12 @@
 ﻿// Copyright (c) Roland Pop All rights reserved.
 // Licensed under the BSD 2-clause "Simplified" License. See License.txt in the project root for license information.
 
+using Newtonsoft.Json.Linq;
 using Piwik.Analytics.Date;
 using Piwik.Analytics.Modules;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 /// Piwik - Open source web analytics
@@ -178,7 +180,6 @@ namespace Piwik.Analytics.Samples
             }
         }
 
-
         private static void getSiteFromId()
         {
             var siteManager = new SitesManager();
@@ -234,7 +235,6 @@ namespace Piwik.Analytics.Samples
             }
         }
 
-
         private static void AddUnthorizedSite()
         {
             var siteManager = new SitesManager();
@@ -243,7 +243,6 @@ namespace Piwik.Analytics.Samples
             string[] urls = { "http://brandNew", "http://shinyNew" };
             siteManager.addSite("Brand New Site", urls);
         }
-
 
         private static void GetBrowserMonthYesterday()
         {
@@ -546,7 +545,7 @@ namespace Piwik.Analytics.Samples
             {
                 Console.WriteLine("Data for " + period);
 
-                var result = (Hashtable)results[period];
+                var result = results[period];
 
                 // Display visit frequency metrics for the current period
                 Console.WriteLine(
@@ -570,7 +569,7 @@ namespace Piwik.Analytics.Samples
             var results = (ArrayList)actions.getPageUrls(
                 1,
                 PiwikPeriod.RANGE,
-                new AbsoluteRangeDate(new DateTime(2011, 09, 10), (new DateTime(2011, 09, 18)))
+                new AbsoluteRangeDate(new DateTime(2020, 09, 10), (new DateTime(2011, 09, 18)))
             );
 
             Console.WriteLine(results.Count + " results found");
@@ -638,8 +637,8 @@ namespace Piwik.Analytics.Samples
             var actions = new Actions();
             actions.setTokenAuth("XYZ");
 
-            var results = (Hashtable)actions.getPageUrl(
-                "",
+            var results = (Dictionary<string, List<object>>)actions.getPageUrl(
+                pageUrl: "",
                 1,
                 PiwikPeriod.DAY,
                 RelativeRangeDate.LAST(7)
@@ -647,15 +646,16 @@ namespace Piwik.Analytics.Samples
 
             Console.WriteLine(results.Count + " results found");
 
-
             foreach (string day in results.Keys)
             {
-                var dayResults = (ArrayList)results[day];
-
+                var dayResults = results[day];
 
                 if (dayResults.Count > 0)
                 {
-                    var result = (Hashtable)dayResults[0];
+                    var resultJson = (JObject)dayResults[0];
+                    var result = resultJson.ToObject<Dictionary<string, object>>();
+
+                    //var result = (Dictionary<string,object>)dayResults[0];
 
                     Console.WriteLine(
                         result[Actions.LABEL] + " " +
@@ -683,12 +683,12 @@ namespace Piwik.Analytics.Samples
         }
 
         public static void GetDownload()
-        {
+        { 
             var actions = new Actions();
             actions.setTokenAuth("XYZ");
 
-            var results = (Hashtable)actions.getDownload(
-                "",
+            var results = (Dictionary<string, List<object>>)actions.getDownload(
+                downloadUrl: "",
                 1,
                 PiwikPeriod.DAY,
                 RelativeRangeDate.LAST(7)
@@ -698,11 +698,12 @@ namespace Piwik.Analytics.Samples
 
             foreach (string day in results.Keys)
             {
-                var dayResults = (ArrayList)results[day];
+                var dayResults = results[day];
 
                 if (dayResults.Count > 0)
                 {
-                    var result = (Hashtable)dayResults[0];
+                    var jsonResult = (JObject)dayResults[0];
+                    var result = jsonResult.ToObject<Dictionary<string, object>>();
 
                     Console.WriteLine(
                         result[Actions.LABEL] + " " +
@@ -744,7 +745,6 @@ namespace Piwik.Analytics.Samples
                 );
             }
         }
-
 
         private static void GetWebsitesExpanded()
         {
@@ -944,17 +944,17 @@ namespace Piwik.Analytics.Samples
             usersManager.setTokenAuth("XYZ");
 
             var users = usersManager.getUsersSitesFromAccess(UsersManager.UserAccess.view);
-            if (users.ContainsKey("result") && users["result"].Equals("error"))
+            if (users.ContainsKey("result") && users["result"][0].Equals("error"))
             {
                 Console.WriteLine("Error! " + users["message"]);
                 return;
             }
 
-            foreach (DictionaryEntry pair in users)
+            foreach (var pair in users)
             {
                 Console.WriteLine("------------------------------");
                 Console.WriteLine(pair.Key + ":");
-                foreach (int idSite in (ArrayList)pair.Value)
+                foreach (int idSite in pair.Value)
                 {
                     Console.WriteLine(idSite);
                 }
@@ -1091,7 +1091,6 @@ namespace Piwik.Analytics.Samples
             var response = usersManager.hasSuperUserAccess();
             Console.WriteLine("Result: " + response);
         }
-
 
         private static void GetUsersHavingSuperUserAccess()
         {
@@ -1253,7 +1252,7 @@ namespace Piwik.Analytics.Samples
             var live = new Live();
             live.setTokenAuth("XYZ");
 
-            var results = (ArrayList)live.getLastVisitsDetails(
+            var results = (List<Dictionary<string,object>>)live.getLastVisitsDetails(
                 idSite: 1,
                 period: PiwikPeriod.DAY,
                 date: RelativeRangeDate.LAST(7),
@@ -1266,7 +1265,8 @@ namespace Piwik.Analytics.Samples
             {
                 foreach (var result in results)
                 {
-                    var liveResult = (Hashtable)result;
+
+                    var liveResult = (Dictionary<string, object>)result;
 
                     Console.WriteLine(
                        "VIsitId: " + liveResult[Live.ID_VISIT] + " \n" +

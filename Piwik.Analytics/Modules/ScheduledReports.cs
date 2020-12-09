@@ -1,13 +1,11 @@
 ﻿// Copyright (c) Roland Pop All rights reserved.
 // Licensed under the BSD 2-clause "Simplified" License. See License.txt in the project root for license information.
 
+using Piwik.Analytics.Date;
+using Piwik.Analytics.Parameters;
 using System;
 using System.Collections.Generic;
-using System.Collections;
 using System.Linq;
-
-using Piwik.Analytics.Parameters;
-using Piwik.Analytics.Date;
 
 /// <summary>
 /// Piwik - Open source web analytics
@@ -151,14 +149,14 @@ namespace Piwik.Analytics.Modules
                 { "additionalEmails", additionalEmails }
             };
 
-            Parameter[] p = 
+            Parameter[] p =
             {
                 new SimpleParameter("idSite", idSite),
                 new SimpleParameter("description", description),
                 new PeriodParameter("period", period),
                 new SimpleParameter("hour", hour),
                 new SimpleParameter("reportType", reportType.ToString()),
-                new SimpleParameter("reportFormat", reportFormat.ToString()),                                
+                new SimpleParameter("reportFormat", reportFormat.ToString()),
                 new ArrayParameter("reports", includedStatistics.Select(i => i.ToString()).ToArray(), false),
                 new DictionaryParameter("parameters", additionalParameters)
             };
@@ -200,7 +198,7 @@ namespace Piwik.Analytics.Modules
                 { "additionalEmails", additionalEmails }
             };
 
-            Parameter[] p = 
+            Parameter[] p =
             {
                 new SimpleParameter("idReport", idReport),
                 new SimpleParameter("idSite", idSite),
@@ -208,7 +206,7 @@ namespace Piwik.Analytics.Modules
                 new PeriodParameter("period", period),
                 new SimpleParameter("hour", hour),
                 new SimpleParameter("reportType", reportType.ToString()),
-                new SimpleParameter("reportFormat", reportFormat.ToString()),                                
+                new SimpleParameter("reportFormat", reportFormat.ToString()),
                 new ArrayParameter("reports", includedStatistics.Select(i => i.ToString()).ToArray(), false),
                 new DictionaryParameter("parameters", additionalParameters)
             };
@@ -223,7 +221,7 @@ namespace Piwik.Analytics.Modules
         /// <returns>True if the deletion was successful</returns>
         public Boolean deleteReport(int idReport)
         {
-            Parameter[] parameters = 
+            Parameter[] parameters =
             {
                 new SimpleParameter("idReport", idReport),
             };

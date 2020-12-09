@@ -1,11 +1,9 @@
 ﻿// Copyright (c) Roland Pop All rights reserved.
 // Licensed under the BSD 2-clause "Simplified" License. See License.txt in the project root for license information.
 
+using Piwik.Analytics.Parameters;
 using System;
 using System.Collections.Generic;
-using System.Collections;
-
-using Piwik.Analytics.Parameters;
 
 /// <summary>
 /// Piwik - Open source web analytics
@@ -22,7 +20,7 @@ namespace Piwik.Analytics.Modules
     /// <remarks>
     /// This Analytics API is tested against Piwik 1.5
     /// </remarks> 
-    public class SitesManager : PiwikAnalytics 
+    public class SitesManager : PiwikAnalytics
     {
 
         public const string ID = "idsite";
@@ -58,17 +56,17 @@ namespace Piwik.Analytics.Modules
         /// <param name="startDate"></param>
         /// <returns></returns>
         public int addSite(
-            string siteName, 
-            string[] urls, 
-            bool ecommerce = false, 
+            string siteName,
+            string[] urls,
+            bool ecommerce = false,
             string[] excludedIps = null,
-            string[] excludedQueryParameters = null, 
-            string timezone = null, 
-            string currency = null, 
-            string group = null, 
+            string[] excludedQueryParameters = null,
+            string timezone = null,
+            string currency = null,
+            string group = null,
             DateTimeOffset startDate = default(DateTimeOffset))
         {
-            Parameter[] parameters = 
+            Parameter[] parameters =
             {
                 new SimpleParameter("siteName", siteName),
                 new SimpleParameter("ecommerce", ecommerce),
@@ -91,7 +89,7 @@ namespace Piwik.Analytics.Modules
         /// <returns></returns>
         public Boolean deleteSite(int idSite)
         {
-            Parameter[] parameters = 
+            Parameter[] parameters =
             {
                 new SimpleParameter("idSite", idSite),
             };
@@ -104,14 +102,14 @@ namespace Piwik.Analytics.Modules
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public ArrayList getSitesIdFromSiteUrl(string url)
+        public List<object> getSitesIdFromSiteUrl(string url)
         {
-            Parameter[] parameters = 
+            Parameter[] parameters =
             {
                 new SimpleParameter("url", url),
             };
 
-            return this.sendRequest<ArrayList>("getSitesIdFromSiteUrl", new List<Parameter>(parameters));
+            return this.sendRequest<List<object>>("getSitesIdFromSiteUrl", new List<Parameter>(parameters));
         }
 
         /// <summary>
@@ -119,14 +117,14 @@ namespace Piwik.Analytics.Modules
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ArrayList getSiteFromId(int id)
+        public List<object> getSiteFromId(int id)
         {
-            Parameter[] parameters = 
+            Parameter[] parameters =
             {
                 new SimpleParameter("idSite", id),
             };
 
-            return this.sendRequest<ArrayList>("getSiteFromId", new List<Parameter>(parameters));
+            return this.sendRequest<List<object>>("getSiteFromId", new List<Parameter>(parameters));
         }
 
         /// <summary>
@@ -147,17 +145,17 @@ namespace Piwik.Analytics.Modules
         /// <returns></returns>
         public Boolean updateSite(
             int idSite,
-            string siteName, 
-            string[] urls, 
-            bool ecommerce = false, 
+            string siteName,
+            string[] urls,
+            bool ecommerce = false,
             string[] excludedIps = null,
-            string[] excludedQueryParameters = null, 
-            string timezone = null, 
-            string currency = null, 
-            string group = null, 
+            string[] excludedQueryParameters = null,
+            string timezone = null,
+            string currency = null,
+            string group = null,
             DateTimeOffset startDate = default(DateTimeOffset))
         {
-            Parameter[] parameters = 
+            Parameter[] parameters =
             {
                 new SimpleParameter("idSite", idSite),
                 new SimpleParameter("siteName", siteName),

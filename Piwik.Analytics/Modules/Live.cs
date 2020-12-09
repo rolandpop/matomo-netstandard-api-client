@@ -1,7 +1,6 @@
 ﻿using Piwik.Analytics.Date;
 using Piwik.Analytics.Parameters;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Piwik.Analytics.Modules
@@ -67,7 +66,7 @@ namespace Piwik.Analytics.Modules
 
             };
 
-            return this.sendRequest<ArrayList>("getLastVisitsDetails", new List<Parameter>(parameters));
+            return this.sendRequest<List<Dictionary<string,object>>>("getLastVisitsDetails", new List<Parameter>(parameters));
         }
     }
 }

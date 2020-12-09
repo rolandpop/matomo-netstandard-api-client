@@ -1,11 +1,9 @@
 ﻿// Copyright (c) Roland Pop All rights reserved.
 // Licensed under the BSD 2-clause "Simplified" License. See License.txt in the project root for license information.
 
+using Piwik.Analytics.Parameters;
 using System;
 using System.Collections.Generic;
-using System.Collections;
-
-using Piwik.Analytics.Parameters;
 
 /// <summary>
 /// Piwik - Open source web analytics
@@ -43,8 +41,8 @@ namespace Piwik.Analytics.Modules
         /// <param name="userLogin"></param>
         /// <param name="preferenceName"></param>
         /// <param name="preferenceValue"></param>
-        /// <returns>Hashtable containing the result message</returns>
-        public Hashtable setUserPreference(
+        /// <returns>Dictionary<string, List<object> containing the result message</returns>
+        public Dictionary<string, List<object>> setUserPreference(
             string userLogin,
             string preferenceName,
             object preferenceValue)
@@ -71,7 +69,7 @@ namespace Piwik.Analytics.Modules
                 valueParameter
             };
 
-            return this.sendRequest<Hashtable>("setUserPreference", new List<Parameter>(parameters));
+            return this.sendRequest<Dictionary<string, List<object>>>("setUserPreference", new List<Parameter>(parameters));
         }
 
         /// <summary>
@@ -79,7 +77,7 @@ namespace Piwik.Analytics.Modules
         /// </summary>
         /// <param name="userLogin"></param>
         /// <param name="preferenceName"></param>
-        /// <returns>Hashtable containing the user preference</returns>
+        /// <returns>Dictionary<string, List<object> containing the user preference</returns>
         public object getUserPreference(
             string userLogin,
             string preferenceName)
@@ -97,32 +95,32 @@ namespace Piwik.Analytics.Modules
         /// Get all piwik users with the given list of logins
         /// </summary>
         /// <param name="userLogins"></param>
-        /// <returns>ArrayList containing Hashtables of users objects</returns>
-        public ArrayList getUsers(
+        /// <returns>List<object> containing Dictionary<string, List<object>s of users objects</returns>
+        public List<object> getUsers(
             string[] userLogins = null)
         {
             List<Parameter> parameters = new List<Parameter>();
             if (userLogins != null)
                 parameters.Add(new SimpleParameter("userLogins", String.Join(",", userLogins)));
 
-            return this.sendRequest<ArrayList>("getUsers", new List<Parameter>(parameters));
+            return this.sendRequest<List<object>>("getUsers", new List<Parameter>(parameters));
         }
 
         /// <summary>
         /// Get user logins of all registered piwik users
         /// </summary>
-        /// <returns>ArrayList containing user logins</returns>
-        public ArrayList getUsersLogin()
+        /// <returns>List<object> containing user logins</returns>
+        public List<object> getUsersLogin()
         {
-            return this.sendRequest<ArrayList>("getUsersLogin", new List<Parameter>());
+            return this.sendRequest<List<object>>("getUsersLogin", new List<Parameter>());
         }
 
         /// <summary>
         /// Get all piwik users and their sites where they have the given access level
         /// </summary>
         /// <param name="access"></param>
-        /// <returns>Hashtables of users containing ArrayList of site ids</returns>
-        public Hashtable getUsersSitesFromAccess(
+        /// <returns>Dictionary<string, List<object>s of users containing List<object> of site ids</returns>
+        public Dictionary<string, List<object>> getUsersSitesFromAccess(
             UserAccess access)
         {
             Parameter[] parameters =
@@ -130,15 +128,15 @@ namespace Piwik.Analytics.Modules
                 new SimpleParameter("access", access.ToString())
             };
 
-            return this.sendRequest<Hashtable>("getUsersSitesFromAccess", new List<Parameter>(parameters));
+            return this.sendRequest<Dictionary<string, List<object>>>("getUsersSitesFromAccess", new List<Parameter>(parameters));
         }
 
         /// <summary>
         /// Get all piwik users and their access level for the piwik site with the given id
         /// </summary>
         /// <param name="idSite"></param>
-        /// <returns>ArrayList of Hashtables containing user logins and their access level</returns>
-        public ArrayList getUsersAccessFromSite(
+        /// <returns>List<object> of Dictionary<string, List<object>s containing user logins and their access level</returns>
+        public List<object> getUsersAccessFromSite(
             int idSite)
         {
             Parameter[] parameters =
@@ -146,7 +144,7 @@ namespace Piwik.Analytics.Modules
                 new SimpleParameter("idSite", idSite)
             };
 
-            return this.sendRequest<ArrayList>("getUsersAccessFromSite", new List<Parameter>(parameters));
+            return this.sendRequest<List<object>>("getUsersAccessFromSite", new List<Parameter>(parameters));
         }
 
         /// <summary>
@@ -154,8 +152,8 @@ namespace Piwik.Analytics.Modules
         /// </summary>
         /// <param name="idSite"></param>
         /// <param name="access"></param>
-        /// <returns>ArrayList of user objects</returns>
-        public ArrayList getUsersWithSiteAccess(
+        /// <returns>List<object> of user objects</returns>
+        public List<object> getUsersWithSiteAccess(
             int idSite,
             UserAccess access)
         {
@@ -165,15 +163,15 @@ namespace Piwik.Analytics.Modules
                 new SimpleParameter("access", access.ToString())
             };
 
-            return this.sendRequest<ArrayList>("getUsersWithSiteAccess ", new List<Parameter>(parameters));
+            return this.sendRequest<List<object>>("getUsersWithSiteAccess ", new List<Parameter>(parameters));
         }
 
         /// <summary>
         /// Get all sites and the specific access level (view or admin) where the given user has access to
         /// </summary>
         /// <param name="userLogin"></param>
-        /// <returns>ArrayList of Hashtables containing idSite and access</returns>
-        public ArrayList getSitesAccessFromUser(
+        /// <returns>List<object> of Dictionary<string, List<object>s containing idSite and access</returns>
+        public List<object> getSitesAccessFromUser(
             string userLogin)
         {
             Parameter[] parameters =
@@ -181,15 +179,15 @@ namespace Piwik.Analytics.Modules
                 new SimpleParameter("userLogin", userLogin)
             };
 
-            return this.sendRequest<ArrayList>("getSitesAccessFromUser  ", new List<Parameter>(parameters));
+            return this.sendRequest<List<object>>("getSitesAccessFromUser  ", new List<Parameter>(parameters));
         }
 
         /// <summary>
         /// Get a piwik user by login
         /// </summary>
         /// <param name="userLogin"></param>
-        /// <returns>ArrayList containing Hashtables of users objects</returns>
-        public ArrayList getUser(
+        /// <returns>List<object> containing Dictionary<string, List<object>s of users objects</returns>
+        public List<object> getUser(
             string userLogin)
         {
             Parameter[] parameters =
@@ -197,15 +195,15 @@ namespace Piwik.Analytics.Modules
                 new SimpleParameter("userLogin", userLogin)
             };
 
-            return this.sendRequest<ArrayList>("getUser", new List<Parameter>(parameters));
+            return this.sendRequest<List<object>>("getUser", new List<Parameter>(parameters));
         }
 
         /// <summary>
         /// Get a piwik user by email
         /// </summary>
         /// <param name="userEmail"></param>
-        /// <returns>ArrayList containing Hashtables of users objects</returns>
-        public ArrayList getUserByEmail(
+        /// <returns>List<object> containing Dictionary<string, List<object>s of users objects</returns>
+        public List<object> getUserByEmail(
             string userEmail)
         {
             Parameter[] parameters =
@@ -213,7 +211,7 @@ namespace Piwik.Analytics.Modules
                 new SimpleParameter("userEmail", userEmail)
             };
 
-            return this.sendRequest<ArrayList>("getUserByEmail", new List<Parameter>(parameters));
+            return this.sendRequest<List<object>>("getUserByEmail", new List<Parameter>(parameters));
         }
 
         /// <summary>
@@ -223,8 +221,8 @@ namespace Piwik.Analytics.Modules
         /// <param name="password"></param>
         /// <param name="email"></param>
         /// <param name="alias"></param>
-        /// <returns>Hashtable containing the result message</returns>
-        public Hashtable addUser(
+        /// <returns>Dictionary<string, List<object> containing the result message</returns>
+        public Dictionary<string, List<object>> addUser(
             string userLogin,
             string password,
             string email,
@@ -238,7 +236,7 @@ namespace Piwik.Analytics.Modules
                 new SimpleParameter("alias", alias)
             };
 
-            return this.sendRequest<Hashtable>("addUser", new List<Parameter>(parameters));
+            return this.sendRequest<Dictionary<string, List<object>>>("addUser", new List<Parameter>(parameters));
         }
 
         /// <summary>
@@ -246,8 +244,8 @@ namespace Piwik.Analytics.Modules
         /// </summary>
         /// <param name="userLogin"></param>
         /// <param name="hasSuperUserAccess"></param>
-        /// <returns>ArrayList containing Hashtables of users objects</returns>
-        public Hashtable setSuperUserAccess(
+        /// <returns>List<object> containing Dictionary<string, List<object>s of users objects</returns>
+        public Dictionary<string, List<object>> setSuperUserAccess(
             string userLogin,
             bool hasSuperUserAccess)
         {
@@ -257,7 +255,7 @@ namespace Piwik.Analytics.Modules
                 new SimpleParameter("hasSuperUserAccess", hasSuperUserAccess)
             };
 
-            return this.sendRequest<Hashtable>("setSuperUserAccess", new List<Parameter>(parameters));
+            return this.sendRequest<Dictionary<string, List<object>>>("setSuperUserAccess", new List<Parameter>(parameters));
         }
 
         /// <summary>
@@ -272,10 +270,10 @@ namespace Piwik.Analytics.Modules
         /// <summary>
         /// Get all piwik users which have super user access
         /// </summary>
-        /// <returns>ArrayList containing Hashtables of users objects</returns>
-        public ArrayList getUsersHavingSuperUserAccess()
+        /// <returns>List<object> containing Dictionary<string, List<object>s of users objects</returns>
+        public List<object> getUsersHavingSuperUserAccess()
         {
-            return this.sendRequest<ArrayList>("getUsersHavingSuperUserAccess", new List<Parameter>());
+            return this.sendRequest<List<object>>("getUsersHavingSuperUserAccess", new List<Parameter>());
         }
 
         /// <summary>
@@ -285,8 +283,8 @@ namespace Piwik.Analytics.Modules
         /// <param name="password"></param>
         /// <param name="email"></param>
         /// <param name="alias"></param>
-        /// <returns>Hashtable containing the result message</returns>
-        public Hashtable updateUser(
+        /// <returns>Dictionary<string, List<object> containing the result message</returns>
+        public Dictionary<string, List<object>> updateUser(
             string userLogin,
             string password = null,
             string email = null,
@@ -300,15 +298,15 @@ namespace Piwik.Analytics.Modules
                 new SimpleParameter("alias", alias)
             };
 
-            return this.sendRequest<Hashtable>("updateUser", new List<Parameter>(parameters));
+            return this.sendRequest<Dictionary<string, List<object>>>("updateUser", new List<Parameter>(parameters));
         }
 
         /// <summary>
         /// Delete a piwik user
         /// </summary>
         /// <param name="userLogin"></param>
-        /// <returns>Hashtable containing the result message</returns>
-        public Hashtable deleteUser(
+        /// <returns>Dictionary<string, List<object> containing the result message</returns>
+        public Dictionary<string, List<object>> deleteUser(
             string userLogin)
         {
             Parameter[] parameters =
@@ -316,7 +314,7 @@ namespace Piwik.Analytics.Modules
                 new SimpleParameter("userLogin", userLogin)
             };
 
-            return this.sendRequest<Hashtable>("deleteUser", new List<Parameter>(parameters));
+            return this.sendRequest<Dictionary<string, List<object>>>("deleteUser", new List<Parameter>(parameters));
         }
 
         /// <summary>
@@ -373,8 +371,8 @@ namespace Piwik.Analytics.Modules
         /// <param name="userLogin"></param>
         /// <param name="access"></param>
         /// <param name="idSites"></param>
-        /// <returns>Hashtable containing the result message</returns>
-        public Hashtable setUserAccess(
+        /// <returns>Dictionary<string, List<object> containing the result message</returns>
+        public Dictionary<string, List<object>> setUserAccess(
             string userLogin,
             UserAccess access,
             int[] idSites)
@@ -386,7 +384,7 @@ namespace Piwik.Analytics.Modules
                 new SimpleParameter("idSites", String.Join(",", idSites))
             };
 
-            return this.sendRequest<Hashtable>("setUserAccess", new List<Parameter>(parameters));
+            return this.sendRequest<Dictionary<string, List<object>>>("setUserAccess", new List<Parameter>(parameters));
         }
 
         /// <summary>

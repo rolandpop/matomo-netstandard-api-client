@@ -1,11 +1,10 @@
 ﻿// Copyright (c) Roland Pop All rights reserved.
 // Licensed under the BSD 2-clause "Simplified" License. See License.txt in the project root for license information.
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Piwik.Analytics.Date;
 using Piwik.Analytics.Parameters;
+using System;
+using System.Collections.Generic;
 
 namespace Piwik.Analytics.Modules
 {
@@ -24,7 +23,7 @@ namespace Piwik.Analytics.Modules
 
         public Object GetNumberOfVisitsPerPage(int idSite, PiwikPeriod period, PiwikDate date, string segment = null)
         {
-            Parameter[] parameters = 
+            Parameter[] parameters =
             {
                 new SimpleParameter("idSite", idSite),
                 new PeriodParameter("period", period),
@@ -34,17 +33,17 @@ namespace Piwik.Analytics.Modules
 
             if (PiwikPeriod.isMultipleDates(period, date))
             {
-                return this.sendRequest<Hashtable>("getNumberOfVisitsPerPage", new List<Parameter>(parameters));
+                return this.sendRequest<Dictionary<string, List<object>>>("getNumberOfVisitsPerPage", new List<Parameter>(parameters));
             }
             else
             {
-                return this.sendRequest<ArrayList>("getNumberOfVisitsPerPage", new List<Parameter>(parameters));
+                return this.sendRequest<List<object>>("getNumberOfVisitsPerPage", new List<Parameter>(parameters));
             }
         }
 
         public Object GetNumberOfVisitsByVisitCount(int idSite, PiwikPeriod period, PiwikDate date, string segment = null)
         {
-            Parameter[] parameters = 
+            Parameter[] parameters =
             {
                 new SimpleParameter("idSite", idSite),
                 new PeriodParameter("period", period),
@@ -54,11 +53,11 @@ namespace Piwik.Analytics.Modules
 
             if (PiwikPeriod.isMultipleDates(period, date))
             {
-                return this.sendRequest<Hashtable>("getNumberOfVisitsByVisitCount ", new List<Parameter>(parameters));
+                return this.sendRequest<Dictionary<string, List<object>>>("getNumberOfVisitsByVisitCount ", new List<Parameter>(parameters));
             }
             else
             {
-                return this.sendRequest<ArrayList>("getNumberOfVisitsByVisitCount ", new List<Parameter>(parameters));
+                return this.sendRequest<List<object>>("getNumberOfVisitsByVisitCount ", new List<Parameter>(parameters));
             }
         }
     }

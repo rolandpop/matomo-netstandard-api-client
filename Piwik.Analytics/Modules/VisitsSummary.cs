@@ -1,13 +1,10 @@
 ﻿// Copyright (c) Roland Pop All rights reserved.
 // Licensed under the BSD 2-clause "Simplified" License. See License.txt in the project root for license information.
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Piwik.Analytics.Date;
 using Piwik.Analytics.Parameters;
+using System;
+using System.Collections.Generic;
 
 namespace Piwik.Analytics.Modules
 {
@@ -30,9 +27,9 @@ namespace Piwik.Analytics.Modules
             return PLUGIN;
         }
 
-        public Hashtable Get(int idSite, PiwikPeriod period, PiwikDate date, string segment = null, string columns = null)
+        public Dictionary<string, List<object>> Get(int idSite, PiwikPeriod period, PiwikDate date, string segment = null, string columns = null)
         {
-            Parameter[] parameters = 
+            Parameter[] parameters =
             {
                 new SimpleParameter("idSite", idSite),
                 new PeriodParameter("period", period),
@@ -41,12 +38,12 @@ namespace Piwik.Analytics.Modules
                 new SimpleParameter("columns", columns)
             };
 
-            return sendRequest<Hashtable>("get", new List<Parameter>(parameters));
+            return sendRequest<Dictionary<string, List<object>>>("get", new List<Parameter>(parameters));
         }
 
         public Object GetVisits(int idSite, PiwikPeriod period, PiwikDate date, string segment = null)
         {
-            Parameter[] parameters = 
+            Parameter[] parameters =
             {
                 new SimpleParameter("idSite", idSite),
                 new PeriodParameter("period", period),
@@ -56,15 +53,15 @@ namespace Piwik.Analytics.Modules
 
             if (PiwikPeriod.isMultipleDates(period, date))
             {
-                return sendRequest<Hashtable>("getVisits", new List<Parameter>(parameters));
+                return sendRequest<Dictionary<string, List<object>>>("getVisits", new List<Parameter>(parameters));
             }
-            
-            return sendRequest<ArrayList>("getVisits", new List<Parameter>(parameters));
+
+            return sendRequest<List<object>>("getVisits", new List<Parameter>(parameters));
         }
 
         public Object GetUniqueVisitors(int idSite, PiwikPeriod period, PiwikDate date, string segment = null)
         {
-            Parameter[] parameters = 
+            Parameter[] parameters =
             {
                 new SimpleParameter("idSite", idSite),
                 new PeriodParameter("period", period),
@@ -74,10 +71,10 @@ namespace Piwik.Analytics.Modules
 
             if (PiwikPeriod.isMultipleDates(period, date))
             {
-                return sendRequest<Hashtable>("getUniqueVisitors", new List<Parameter>(parameters));
+                return sendRequest<Dictionary<string, List<object>>>("getUniqueVisitors", new List<Parameter>(parameters));
             }
 
-            return sendRequest<ArrayList>("getUniqueVisitors", new List<Parameter>(parameters));
+            return sendRequest<List<object>>("getUniqueVisitors", new List<Parameter>(parameters));
         }
     }
 }

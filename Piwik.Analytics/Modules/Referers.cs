@@ -1,12 +1,10 @@
 ﻿// Copyright (c) Roland Pop All rights reserved.
 // Licensed under the BSD 2-clause "Simplified" License. See License.txt in the project root for license information.
 
-using System;
-using System.Collections.Generic;
-using System.Collections;
-
 using Piwik.Analytics.Date;
 using Piwik.Analytics.Parameters;
+using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// Piwik - Open source web analytics
@@ -59,11 +57,11 @@ namespace Piwik.Analytics.Modules
 
             if (PiwikPeriod.isMultipleDates(period, date))
             {
-                return this.sendRequest<Hashtable>("getWebsites", new List<Parameter>(parameters));
+                return this.sendRequest<Dictionary<string, List<object>>>("getWebsites", new List<Parameter>(parameters));
             }
             else
             {
-                return this.sendRequest<ArrayList>("getWebsites", new List<Parameter>(parameters));
+                return this.sendRequest<List<object>>("getWebsites", new List<Parameter>(parameters));
             }
         }
 
@@ -80,11 +78,11 @@ namespace Piwik.Analytics.Modules
 
             if (PiwikPeriod.isMultipleDates(period, date))
             {
-                return this.sendRequest<Hashtable>("getRefererType", new List<Parameter>(parameters));
+                return this.sendRequest<Dictionary<string, List<object>>>("getRefererType", new List<Parameter>(parameters));
             }
             else
             {
-                return this.sendRequest<ArrayList>("getRefererType", new List<Parameter>(parameters));
+                return this.sendRequest<List<object>>("getRefererType", new List<Parameter>(parameters));
             }
         }
 

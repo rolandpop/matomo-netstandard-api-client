@@ -1,11 +1,9 @@
 ﻿// Copyright (c) Roland Pop All rights reserved.
 // Licensed under the BSD 2-clause "Simplified" License. See License.txt in the project root for license information.
 
-using System.Collections.Generic;
-using System.Collections;
-
 using Piwik.Analytics.Date;
 using Piwik.Analytics.Parameters;
+using System.Collections.Generic;
 
 /// <summary>
 /// Piwik - Open source web analytics
@@ -22,7 +20,7 @@ namespace Piwik.Analytics.Modules
     /// <remarks>
     /// This Analytics API is tested against Piwik 1.5
     /// </remarks> 
-    public class VisitFrequency : PiwikAnalytics 
+    public class VisitFrequency : PiwikAnalytics
     {
         public const string NB_UNIQ_VISITORS_RETURNING = "nb_uniq_visitors_returning";
         public const string NB_VISITS_RETURNING = "nb_visits_returning";
@@ -42,9 +40,9 @@ namespace Piwik.Analytics.Modules
             return PLUGIN;
         }
 
-        public Hashtable get(int idSite, PiwikPeriod period, PiwikDate date, string segment = null)
+        public Dictionary<string, Dictionary<string,object>> get(int idSite, PiwikPeriod period, PiwikDate date, string segment = null)
         {
-            Parameter[] parameters = 
+            Parameter[] parameters =
             {
                 new SimpleParameter("idSite", idSite),
                 new PeriodParameter("period", period),
@@ -52,7 +50,7 @@ namespace Piwik.Analytics.Modules
                 new SimpleParameter("segment", segment),
             };
 
-            return this.sendRequest<Hashtable>("get", new List<Parameter>(parameters));
+            return this.sendRequest<Dictionary<string, Dictionary<string, object>>>("get", new List<Parameter>(parameters));
         }
 
     }

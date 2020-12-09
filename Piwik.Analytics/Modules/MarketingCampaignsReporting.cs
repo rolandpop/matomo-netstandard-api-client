@@ -1,7 +1,6 @@
 ﻿using Piwik.Analytics.Date;
 using Piwik.Analytics.Parameters;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Piwik.Analytics.Modules
@@ -47,11 +46,11 @@ namespace Piwik.Analytics.Modules
 
             if (PiwikPeriod.isMultipleDates(period, date))
             {
-                return this.sendRequest<Hashtable>("getSource", new List<Parameter>(parameters));
+                return this.sendRequest<Dictionary<string, List<object>>>("getSource", new List<Parameter>(parameters));
             }
             else
             {
-                return this.sendRequest<ArrayList>("getSource", new List<Parameter>(parameters));
+                return this.sendRequest<List<object>>("getSource", new List<Parameter>(parameters));
             }
         }
     }

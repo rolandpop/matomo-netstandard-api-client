@@ -10,16 +10,19 @@
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<RepositoryUrl>https://github.com/rolandpop/matomo-netstandard-api-client</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<AssemblyVersion>1.0.0.3</AssemblyVersion>
-		<FileVersion>1.0.0.3</FileVersion>
+		<AssemblyVersion>1.0.0.5</AssemblyVersion>
+		<FileVersion>1.0.0.5</FileVersion>
 		<NeutralLanguage>en-US</NeutralLanguage>
 		<PackageReleaseNotes>.Net Standard implementation of Matomo API Client.</PackageReleaseNotes>
-		<Version>1.0.3</Version>
+		<Version>1.0.5</Version>
 	</PropertyGroup>
 	<ItemGroup>
 	  <None Include="..\LICENSE">
 	    <Pack>True</Pack>
 	    <PackagePath></PackagePath>
 	  </None>
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
 	</ItemGroup>
 </Project>

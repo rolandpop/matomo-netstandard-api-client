@@ -1,12 +1,10 @@
 ﻿// Copyright (c) Roland Pop All rights reserved.
 // Licensed under the BSD 2-clause "Simplified" License. See License.txt in the project root for license information.
 
-using System;
-using System.Collections.Generic;
-using System.Collections;
-
 using Piwik.Analytics.Date;
 using Piwik.Analytics.Parameters;
+using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// Piwik - Open source web analytics
@@ -23,7 +21,7 @@ namespace Piwik.Analytics.Modules
     /// <remarks>
     /// This Analytics API is tested against Piwik 1.5
     /// </remarks> 
-    public class UserSettings : PiwikAnalytics 
+    public class UserSettings : PiwikAnalytics
     {
         public const string LABEL = "label";
         public const string NB_UNIQ_VISITORS = "nb_uniq_visitors";
@@ -47,7 +45,7 @@ namespace Piwik.Analytics.Modules
 
         public Object getBrowser(int idSite, PiwikPeriod period, PiwikDate date, string segment = null)
         {
-            Parameter[] parameters = 
+            Parameter[] parameters =
             {
                 new SimpleParameter("idSite", idSite),
                 new PeriodParameter("period", period),
@@ -57,17 +55,17 @@ namespace Piwik.Analytics.Modules
 
             if (PiwikPeriod.isMultipleDates(period, date))
             {
-                return this.sendRequest<Hashtable>("getBrowser", new List<Parameter>(parameters));
+                return this.sendRequest<Dictionary<string, List<object>>>("getBrowser", new List<Parameter>(parameters));
             }
             else
             {
-                return this.sendRequest<ArrayList>("getBrowser", new List<Parameter>(parameters));
+                return this.sendRequest<List<object>>("getBrowser", new List<Parameter>(parameters));
             }
         }
 
         public Object getOS(int idSite, PiwikPeriod period, PiwikDate date, string segment = null)
         {
-            Parameter[] parameters = 
+            Parameter[] parameters =
             {
                 new SimpleParameter("idSite", idSite),
                 new PeriodParameter("period", period),
@@ -77,11 +75,11 @@ namespace Piwik.Analytics.Modules
 
             if (PiwikPeriod.isMultipleDates(period, date))
             {
-                return this.sendRequest<Hashtable>("getOS", new List<Parameter>(parameters));
+                return this.sendRequest<Dictionary<string, List<object>>>("getOS", new List<Parameter>(parameters));
             }
             else
             {
-                return this.sendRequest<ArrayList>("getOS", new List<Parameter>(parameters));
+                return this.sendRequest<List<object>>("getOS", new List<Parameter>(parameters));
             }
         }
 
@@ -106,7 +104,7 @@ namespace Piwik.Analytics.Modules
             {
                 segment += "operatingSystem==" + OS + ",";
             }
-                              
+
             return this.getOS(idSite, period, date, segment);
         }
 
